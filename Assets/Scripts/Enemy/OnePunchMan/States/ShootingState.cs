@@ -1,0 +1,49 @@
+using StatePattern.Main;
+using StatePattern.Player;
+using UnityEngine;
+
+namespace StatePattern.Enemy
+{
+    public class ShootingState : IState
+    {
+        public OnePunchManController Owner { get; set; }
+        private OnePunchManStateMachine onePunchManStateMachine;
+        private PlayerController target;
+        private float shootTimer;
+
+        public ShootingState(OnePunchManStateMachine onePunchManStateMachine)
+        {
+            this.onePunchManStateMachine = onePunchManStateMachine;
+        }
+        public void OnStateEnter()
+        {
+            SetTarget();
+            shootTimer = 0;
+        }
+        public void Update()
+        {
+            Quaternion desiredRotation = CalculateRotationTowardsPlayer();
+            Owner.SetRotation(RoationTowards(desiredRotation));
+            if(IsRotationComplete(desiredRotation))
+            {
+                shootTimer -= Time.deltaTime;
+                if (shootTimer <= 0)
+                {
+                    ResetTimer();
+                    Owner.Shoot();
+                }
+            }
+        }
+        public void OnStateExit() => target = null;
+        private void SetTarget() => target = GameService.Instance.PlayerService.GetPlayer();
+        private Quaternion CalculateRotationTowardsPlayer()
+        {
+            Vector3 directionToPlayer = target.Position - Owner.Position;
+            directionToPlayer.y = 0f;
+            return Quaternion.LookRotation(directionToPlayer,Vector3.up);
+        }
+        private Quaternion RoationTowards(Quaternion desiredRoation) => Quaternion.LerpUnclamped(Owner.Rotation,desiredRoation,Owner.Data.RotationSpeed / 30 * Time.deltaTime);
+        private bool IsRotationComplete(Quaternion desiredRotation) => Quaternion.Angle(Owner.Rotation, desiredRotation) < Owner.Data.RotationThreshold;
+        private void ResetTimer() => shootTimer = Owner.Data.RateOfFire;
+    }
+}

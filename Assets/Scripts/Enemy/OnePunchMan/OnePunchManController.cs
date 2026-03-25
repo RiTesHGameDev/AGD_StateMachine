@@ -13,9 +13,10 @@ namespace StatePattern.Enemy
         {
             enemyView.SetController(this);
             CreateStateMachine();
+            stateMachine.ChangeState(OnePunchManStates.IDLE);
         }
         private void CreateStateMachine() => stateMachine = new OnePunchManStateMachine(this);
-
+        
         public override void UpdateEnemy()
         {
             if (currentState == EnemyState.DEACTIVE)

@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using StatePattern.StateMachine;
 using UnityEngine;
 
 namespace StatePattern.Enemy
 {
     public class RotatingState : IState
     {
-        public OnePunchManController Owner { get; set; }
+        public EnemyController Owner { get; set; }
         private OnePunchManStateMachine stateMachine;
         private float targetRotation;
 
@@ -18,7 +17,7 @@ namespace StatePattern.Enemy
         {
             Owner.SetRotation(CalculateRotation());
             if (IsRotationComplete())
-                stateMachine.ChangeState(OnePunchManStates.IDLE);
+                stateMachine.ChangeState(StateMachine.States.IDLE);
         }
 
         public void OnStateExit() => targetRotation = 0;

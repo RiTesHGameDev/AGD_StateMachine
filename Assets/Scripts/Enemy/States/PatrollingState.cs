@@ -6,11 +6,11 @@ namespace StatePattern.Enemy
     public class PatrollingState : IState
     {
         public EnemyController Owner { get; set; }
-        private OnePunchManStateMachine stateMachine;
+        private IStateMachine stateMachine;
 
         private int currentPatrollingIndex = -1;
         private Vector3 desination;
-        public PatrollingState(OnePunchManStateMachine stateMachine) 
+        public PatrollingState(IStateMachine stateMachine) 
         {
             this.stateMachine = stateMachine; 
         }

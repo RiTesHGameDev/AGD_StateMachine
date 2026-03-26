@@ -3,7 +3,7 @@ using StatePattern.StateMachine;
 
 namespace StatePattern.Enemy
 {
-    public class OnePunchManStateMachine
+    public class OnePunchManStateMachine : IStateMachine
     {
         private OnePunchManController Owner;
         private IState currentState;

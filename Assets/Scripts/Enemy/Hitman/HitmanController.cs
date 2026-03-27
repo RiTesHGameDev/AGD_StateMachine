@@ -10,6 +10,7 @@ namespace StatePattern.Enemy
         {
             enemyView.SetController(this);
             CreateStateMachine();
+            stateMachine.ChangeState(States.IDLE);
         }
 
         private void CreateStateMachine() => stateMachine = new HitmanStateMachine(this);
@@ -25,7 +26,7 @@ namespace StatePattern.Enemy
         public override void Shoot()
         {
             base.Shoot();
-            stateMachine.ChangeState(StateMachine.States.TELEPORTING);
+            stateMachine.ChangeState(States.TELEPORTING);
         }
         public override void PlayerEnteredRange(PlayerController targetToSet)
         {

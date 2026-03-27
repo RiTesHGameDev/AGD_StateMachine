@@ -6,6 +6,7 @@
         ROTATING,
         SHOOTING,
         PATROLLING,
-        CHASING
+        CHASING,
+        TELEPORTING
     }
 }

@@ -51,8 +51,6 @@ namespace StatePattern.UI
                 newButton.SetLevelID(i);
             }
         }
-
-        // To Learn more about Events and Observer Pattern, check out the course list here: https://outscal.com/courses
         public void OnLevelSelected(int levelId)
         {
             GameService.Instance.EventService.OnLevelSelected.InvokeEvent(levelId);

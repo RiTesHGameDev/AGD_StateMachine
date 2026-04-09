@@ -57,6 +57,15 @@ namespace StatePattern.Enemy
                 case EnemyType.OnePunchMan:
                     enemy = new OnePunchManController(enemyScriptableObject);
                     break;
+                case EnemyType.PatrolMan:
+                    enemy = new PatrolManController(enemyScriptableObject);
+                    break;
+                case EnemyType.Hitman:
+                    enemy = new HitmanController(enemyScriptableObject);
+                    break;
+                case EnemyType.CloneMan:
+                    enemy = new CloneManController(enemyScriptableObject);
+                    break;
                 default:
                     enemy = new EnemyController(enemyScriptableObject);
                     break;
@@ -64,7 +73,7 @@ namespace StatePattern.Enemy
 
             return enemy;
         }
-
+        public void AddEnemy(EnemyController enemy) => activeEnemies.Add(enemy);
         public void EnemyDied(EnemyController deadEnemy)
         {
             activeEnemies.Remove(deadEnemy);
